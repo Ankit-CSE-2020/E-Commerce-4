@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>E-commerce App</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+
+     <style>
+       .cart{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 8vh;
+        font-size: xx-large;
+        letter-spacing: 0.3rem;
+        font-weight: 100;
+        color:indianred;
+       }
+
+       h1{
+        width: 650px;
+        color:indianred;
+       }
+
+       .backlToList{
+        position: relative;
+        right: -82vw;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1rem 0rem;
+        background-color: rgb(50, 50, 202);
+        color: aliceblue;
+        
+        padding: 0.4rem 0.5rem;
+        border: 0;
+        cursor: pointer;
+      
+
+       }
+
+
+       
+@media (max-width:1004px){
+    .card-containerPP{
+
+         height: 24rem;
+         width: 30%;
+    }
+}
+
+@media (max-width:776px){
+    .card-containerPP{
+
+         height: 24rem;
+         width: 45%;
+    }
+
+    .reloadMessage{
+        font-size:small;
+        width: 500px;
+    
+    }
+    .footermid i{
+       letter-spacing: 5px;
+       font-size: small;
+       margin-left: 0.5rem;
+    }
+
+    .footerright{
+        font-size: small;
+    }
+    
+}
+
+@media (max-width:520px){
+    .cartContainer{
+         width:5%;
+        margin-left: 3rem;
+    }
+    
+}
+
+
+   
+   </style>
+
+</head>
+<body>
+
+    <header>
+        <nav class="nav">
+         <div class="left">
+           <span>Welcome <strong id="name"><%=name%></strong>...| </span>
+         </div>
+         <div class="right">
+            <a onclick="logout()" href="/login">Log Out</a>
+             
+        </div>
+        </nav>
+     
+    </header>
+
+     <section>
+          <p class="cart">Cart...|</p>
+          <a class="backlToList" href="/dashboard">Back to Product Page</a>
+          <div id="productList">
+            <!-- Product placeholders will be added here -->
+         </div>
+ 
+    
+       <section>
+         <div id="descProduct">
+ 
+         </div>
+       </section>
+     </section>
+         
+     <section>
+        <div id="descProduct">
+
+        </div>
+     </section>
+
+<%- include("./partials/footer"); %>
+
+
+
+<script>
+
+     
+const productList = document.getElementById('productList');
+
+let productsData = []; // To store the product data
+let productsPerPage = 3;
+let currentPage = 0;
+
+// Load products from JSON file (Assuming you're using a server to serve JSON)
+fetch('/cartproducts.json')
+   .then(response => response.json())
+   .then(data => {
+      productsData = data;
+      loadProducts();
+   });
+
+// Function to load products
+function loadProducts() {
+   const startIndex = currentPage * productsPerPage;
+   const endIndex = startIndex + productsPerPage;
+   const productsToShow = productsData
+
+   productsToShow.forEach(product => {
+      const mainContainer= document.createElement('div');
+      mainContainer.className = 'card-containerPP';
+
+      const productContainer = document.createElement('div');
+      productContainer.className = 'cardPP';
+
+
+      const productImage = document.createElement('img');
+      productImage.src = product.thumbnail;
+      productImage.className='imgPP';
+
+      const productName = document.createElement('h2');
+      productName.textContent = product.title;
+      productName.className='productName';
+
+      const productPrice=document.createElement('span');
+      productPrice.innerText=`Price:${product.price}`;
+      productPrice.className='productPrice'
+
+      const deletetocart = document.createElement('button');
+      deletetocart.textContent = 'Delete To Cart';
+      deletetocart.className='btndelete'
+
+      const productQuantity=document.createElement('div');
+      productQuantity.innerText='Quantity:' 
+
+      const inputNum=document.createElement('input')
+      inputNum.type='Number'
+      inputNum.value='1'
+
+      productQuantity.className='quantity'
+      const productQuantityBtnSub=document.createElement('button')
+      productQuantityBtnSub.innerText='-';
+      productQuantityBtnSub.className='btnsubPP'
+      const productQuantityBtnAdd=document.createElement('button')
+      productQuantityBtnAdd.innerText='+';
+      productQuantityBtnAdd.className='btnaddPP'
+
+      productQuantityBtnAdd.addEventListener('click',()=>{
+         inputNum.value++;
+      })
+
+      productQuantityBtnSub.addEventListener('click',()=>{
+         inputNum.value--;
+      })
+
+
+      const viewDetailsButton = document.createElement('button');
+      viewDetailsButton.textContent = 'View Details';
+      viewDetailsButton.className='btndesc'
+      viewDetailsButton.id='view-desc'
+      viewDetailsButton.addEventListener('click', () => {
+         showDesc()
+      });
+
+      let addDesc=document.getElementById('descProduct');
+      
+      function showDesc() {     
+         addDesc.innerHTML=` <div id="mainDes" class="main-desc">
+                                 <div class="desc-image">
+                                     <img src=${product.thumbnail} alt="">
+                                 </div>
+                                 <div class="desc-intro">
+                                    <p>${product.description} </p>
+                                 </div>
+                                 <div class="btn-desc">
+                                      <button id="btnremovedesc" type="submit" onclick="close1()" class="btn">Close</button>
+                                 </div>
+                              </div>`
+                       
+        
+      }
+         
+    
+
+      productContainer.appendChild(productImage);
+      productContainer.appendChild(productName);
+      productContainer.appendChild(productPrice);
+      
+      productQuantity.appendChild(inputNum)
+      productQuantity.appendChild(productQuantityBtnSub)
+      productQuantity.appendChild(productQuantityBtnAdd)
+      productContainer.appendChild(productQuantity);
+
+      productContainer.appendChild(deletetocart);
+
+      productContainer.appendChild(viewDetailsButton);
+      mainContainer.appendChild(productContainer)
+      productList.appendChild(mainContainer);
+   });
+
+   currentPage++;
+}
+
+let addDesc=document.getElementById('descProduct');
+
+function close1() {
+
+    addDesc.innerHTML=''
+  
+}
+
+
+</script>
+
+    
+    
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce App</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+     
+    <header> 
+        <nav class="nav">
+         <div class="left">
+           <span>Welcome <strong id="name"><%=name%></strong>...| </span>
+            <!-- <a href="/signup.html">Sign Up</a>  OR
+            <a href="/login.html">Sign In</a> -->
+         </div>
+         <div class="right">
+          <a href="/cart" aria-label="fa fa-shopping-cart"> <i class="fa fa-shopping-cart"></i></a>
+          <a  href="/login">Log Out</a>
+ 
+        </div>
+        </nav>
+     
+    </header>
+
+    <p id="userStatus" style="display: none;"><%=loginOrNot%></p>
+    
+    
+        <div id="productList">
+           <!-- Product placeholders will be added here -->
+        </div>
+
+   
+      <section>
+        <div id="descProduct">
+
+        </div>
+      </section>
+
+      <div>
+        <h1 class="reloadMessage">To get more product please click on Load More Products button...</h1>
+     </div>  
+
+     <button id="loadMore" class="loadProduct">Load More Products</button>
+
+     <%- include("./partials/footer"); %>
+
+    
+
+<script>
+  
+const productList = document.getElementById('productList');
+const loadMoreButton = document.getElementById('loadMore');
+
+let productsData = []; // To store the product data
+let productsPerPage = 3;
+let currentPage = 0;
+
+// Load products from JSON file (Assuming you're using a server to serve JSON)
+fetch('/products.json')
+   .then(response => response.json())
+   .then(data => {
+      productsData = data;
+      loadProducts();
+   });
+
+// Function to load products
+function loadProducts() {
+   const startIndex = currentPage * productsPerPage;
+   const endIndex = startIndex + productsPerPage;
+   const productsToShow = productsData.slice(startIndex, endIndex);
+
+   productsToShow.forEach(product => {
+      const mainContainer= document.createElement('div');
+      mainContainer.className = 'card-containerPP';
+
+      const productContainer = document.createElement('div');
+      productContainer.className = 'cardPP';
+
+
+      const productImage = document.createElement('img');
+      productImage.src = product.thumbnail;
+      productImage.className='imgPP';
+
+      const productName = document.createElement('h2');
+      productName.textContent = product.title;
+      productName.className='productName';
+
+      const productPrice=document.createElement('span');
+      productPrice.innerText=`Price:${product.price}`;
+      productPrice.className='productPrice'
+
+
+
+      const addtocart = document.createElement('button');
+      addtocart.textContent = 'Add To Cart';
+      addtocart.className='btndelete'
+
+      addtocart.addEventListener('click',()=>{
+         let userStatus=document.getElementById('userStatus').innerText;
+         if(userStatus){
+           add(product.thumbnail)
+
+         }
+         else{
+            
+            window.location.href='/login'
+         }
+
+      
+      })
+
+      const viewDetailsButton = document.createElement('button');
+      viewDetailsButton.textContent = 'View Details';
+      viewDetailsButton.className='btndesc'
+      viewDetailsButton.id='view-desc'
+      viewDetailsButton.addEventListener('click', () => {
+         showDesc()
+      });
+
+      let addDesc=document.getElementById('descProduct');
+      
+      function showDesc() {     
+         addDesc.innerHTML=` <div id="mainDes" class="main-desc">
+                                 <div class="desc-image">
+                                     <img src=${product.thumbnail} alt="">
+                                 </div>
+                                 <div class="desc-intro">
+                                    <p>${product.description} </p>
+                                 </div>
+                                 <div class="btn-desc">
+                                      <button id="btnremovedesc" type="submit" onclick="close1()" class="btn">Close</button>
+                                 </div>
+                              </div>`
+                       
+        
+      }
+         
+    
+
+     
+
+
+
+      productContainer.appendChild(productImage);
+      productContainer.appendChild(productName);
+      productContainer.appendChild(productPrice);
+
+      productContainer.appendChild(addtocart)
+
+      productContainer.appendChild(viewDetailsButton);
+      mainContainer.appendChild(productContainer)
+      productList.appendChild(mainContainer);
+   });
+
+   currentPage++;
+}
+
+loadMoreButton.addEventListener('click', loadProducts);
+
+let addDesc=document.getElementById('descProduct');
+
+function close1() {
+
+    addDesc.innerHTML=''
+  
+}
+
+function add(data){
+
+    fetch('/dashboard',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({thumbnail:data})
+    })
+    .then((res)=>{
+      if(res.status===200){
+         alert('Product added succ..')
+      }
+    })
+
+
+
+}
+</script>
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce App</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /*--------header-------*/
+         
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+:root{
+    --primary:indianred;
+    --secodary:rgba(15, 10, 29,0.849);
+    --light: #2f3640;
+}
+
+header{
+    width: 100%;
+   
+}
+
+.nav{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; 
+    box-shadow: 2px 1px 3px grey;
+    
+}
+
+.nav .left{
+ flex-basis: 50%;
+ letter-spacing: 2px;
+}
+
+
+
+
+
+         /*--------------*/
+         .main{
+            width: 100%;
+            height: 87vh;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            flex-wrap: wrap;
+            
+         }
+      
+        .container{
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+  
+     
+        .container div{
+           
+        
+            border-radius: 1.52rem;
+            box-shadow: 2px 2px 6px rgb(45, 44, 43);
+        
+            width: 15rem;
+            height: 40vh;
+            margin-right: 2rem;
+
+            display: flex;
+            justify-content:center;
+            align-items:center;
+
+        }
+
+        div a{
+            text-decoration: none;
+            font-size: xx-large;
+            color:rgb(51, 51, 96);
+            text-shadow: 1px 1px 3px rgb(21, 20, 20);
+            font-weight: 900;
+            
+
+
+        }
+
+        /*------footer*******/
+        
+
+.footer{
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #2f3640;
+    color: white;
+}
+
+.footerleft h2 span{
+    color: var(--primary);
+    letter-spacing: 3px;
+   
+}
+
+
+.footerleft p span{
+    color: var(--primary);
+    
+}
+
+.footerleft p {
+    color:rgba(167, 166, 166, 0.76);
+    font-size: small;
+    letter-spacing: 1px;
+    margin-left: 12px;
+    padding: 0.9rem;
+}
+
+.footermid i{
+    color: var(--primary);
+   letter-spacing: 15px;
+}
+
+.footermid p{
+    color:rgba(167, 166, 166, 0.76);
+    font-size: small;
+    letter-spacing: 1px;
+    padding: 0.9rem;
+}
+
+
+.footerright{
+    color:rgba(167, 166, 166, 0.76)
+}
+
+
+@media (min-width:2000px){
+    .container div {
+    
+        width: 23rem;
+    }
+}
+
+@media (max-width:630px){
+    .container {
+     
+        display: flex;
+        flex-direction: column;
+      
+     
+    }
+
+    .container div{
+        margin-right: 0rem;
+        margin: 1rem;
+      
+    }
+
+    .main{
+        height: 100vh;
+        
+     }
+     
+     .footer h2{
+        margin-left: 0.5rem;
+     }
+
+     .footerleft p {
+        margin-left: 0px;
+    }
+
+    .footermid i{
+        color: var(--primary);
+       letter-spacing: 8px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+    
+    <header>
+        <nav class="nav">
+         <div class="left">
+            <span>Welcome to E-commarce shop</span>
+         </div>
+         <nav>
+    </header>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce App</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+
+</head>
+
+   <style>
+
+    .addProductForm{
+        width: 100%;
+        height: 65vh;
+    }
+
+    .addProductForm h2{
+        color: rgb(168, 49, 27);
+        width: 15vw;
+        margin: auto;
+        margin-top:1vh;
+        margin-bottom: 3vh;
+        font-family: 'Courier New', Courier, monospace;
+               
+    }
+    
+
+
+    label{
+      margin-left: 0vw;  
+      font-weight: 700;
+      font-size: 3.8vh;
+      color:rgb(96, 96, 96); 
+    }
+   
+    .input1{
+     margin: 1vh;
+     width: 60vh;
+    }
+    textarea{
+        margin-left: 16vw;
+    }
+
+    .input2{
+        margin-left: 3vh;
+    }
+
+
+
+
+    /*****LODIN CSSS******/
+
+     
+    
+     .container{
+        min-width: 35vw;
+        
+        margin: auto;
+        position: absolute;
+        top: 25vh;
+        left: 30vw;
+     }
+
+     .form-box{
+        background-color: bisque;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        border-radius: 0.5rem;
+       
+     }
+     
+
+     .signIN{
+        color: black;
+        font-weight: 700;
+        width: 11vw;
+        margin: auto;
+        margin-bottom: 2vh;
+     }
+
+     .Lemail ,.Lpassword{
+
+        font-size: 2rem;
+        font-weight: 300;
+        margin-left: none;
+
+
+
+     }
+
+     #Email, #Password{
+        height: 6vh;
+        width: 20vw;
+   
+        margin-bottom: 2vh;
+        font-size: 1rem;
+        border-radius: 7px;
+     }
+     
+     .btndiv{
+        width: 10vw;
+        margin: auto;
+     }
+
+     .adminAddPro{
+        display: block;
+     }
+
+     .btn{
+        height: 6vh;
+        width: 10vw;
+        border-radius: 7px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        position: relative;
+        right: 0vw;
+     }  
+    
+     
+     .message{
+        background-color: bisque;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        
+        max-width: 35vw;
+        margin: auto;
+        position: absolute;
+        top: 25vh;
+        left: 30vw;
+
+     }
+
+     .alert h1{
+        padding: 0.7rem;
+        margin-top: -2vh;
+     }
+
+     .subMessage{
+        font-size:medium;
+     }
+
+     .unauthMessBtn{
+        width: 200px;
+        margin: auto;
+        padding-left: 3vw;
+     }
+     
+     .login{
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        background-color: rgb(36, 36, 151);
+        padding: 0.6rem 0.8rem;
+        border-radius: 0.3rem;
+        margin-top: 3vh;
+       
+   
+    }
+
+
+    .adminAddPro{
+        color: white;
+        background-color: rgb(36, 36, 151);
+        padding: 0.6rem 0.8rem;
+        border-radius: 0.3rem;
+        margin-top: 3vh;
+    }
+
+    
+
+
+</style>
+   
+
+<body>
+
+    <header id="adminHeader">
+        <nav class="nav">
+         <div class="left">
+           <span>Welcome <strong id="name">Admin</strong>...| </span>
+         </div>
+         <div class="right">
+            <a  href="/login">Log Out</a>
+             
+        </div>
+        </nav>
+
+    </header>
+
+    <section id="adminAddProd" class="addProductForm">
+      
+        <h2>Add Product</h2>
+
+        <form action="/admin" method="post"  >
+            <label  for="">Product Name:</label>
+            <input class="input1"  type="text" name="pname" >
+            <br>
+            <label style="display: inline-block" for="">Product <br>Description:</label>
+            <br>
+            <textarea id="descProduct" name="pdescription" id="" cols="40" rows="10"></textarea>
+            <br>
+
+            <label for="">Product Price:</label>
+            <input   class="input1 input2" type="number" name="pprice">
+             <br>
+
+            <label for="">Product Image URL:</label>
+            <input  class="input1" type="text" name="pimg">
+            <br>
+            <button type="submit"  class="adminAddPro">Add Product</button>
+        </form>
+
+    </section>
+    
+
+
+   <%- include("./partials/footer"); %>
+         
+    </header>
